@@ -67,88 +67,10 @@ $total_paginas = ceil($total_registros / $limit);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Peticiones</title>
+    <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
-    <style>
-        /* Fondo con gradiente en movimiento */
-        body {
-            font-family: 'Arial', 'Verdana', 'Segoe UI', sans-serif;
-            background: linear-gradient(45deg, #0000FF, #00FFFF, #00BFFF, #1E90FF);
-            background-size: 400% 400%;
-            animation: gradientAnimation 10s ease infinite;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
 
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        h1 {
-            text-align: center;
-            color: white;
-            margin-top: 20px;
-        }
-
-        .container {
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-            margin-top: 50px;
-        }
-
-        /* Estilos para los inputs y botones */
-        .form-control, .form-select, .btn {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: #00FFFF;
-            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-        }
-
-        .btn-primary {
-            background-color: #00FFFF;
-            border-color: #00FFFF;
-        }
-
-        .btn-primary:hover {
-            background-color: #00BFFF;
-            border-color: #00BFFF;
-        }
-
-        .table thead {
-            background-color: #1E90FF;
-            color: white;
-        }
-
-        .table-striped tbody tr:nth-child(odd) {
-            background-color: rgba(0, 0, 0, 0.1);
-            
-        }
-
-        .pagination {
-            margin-top: 20px;
-            justify-content: center;
-        }
-
-        /* Botones Font Awesome */
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-
-        .table td, .table th {
-            vertical-align: middle;
-        }
-
-    </style>
 </head>
 <body>
 <div class="container my-5">
