@@ -33,7 +33,7 @@ require 'db_config.php';
         h1 {
             color: #fff;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 21px;
             font-size: 1.8rem;
         }
 
