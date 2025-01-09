@@ -4,17 +4,17 @@ require_once 'db_config.php';
 // Función para asignar días según el tipo de petición
 function obtenerDiasPorTipo($tipo) {
     $dias_por_tipo = [
-        'denuncia' => 15,
-        'derecho peticion' => 15,
-        'felicitacion' => 15,
-        'queja' => 15,
-        'reclamo' => 15,
-        'sugerencia' => 15,
-        'peticion consulta' => 30,
-        'peticion documentos' => 10,
-        'peticion informacion' => 10,
-        'peticion entre autoridades' => 10,
-        'peticion por congresistas' => 5
+        'denuncia' => 16,
+        'derecho peticion' => 16,
+        'felicitacion' => 16,
+        'queja' => 16,
+        'reclamo' => 16,
+        'sugerencia' => 16,
+        'peticion consulta' => 31,
+        'peticion documentos' => 11,
+        'peticion informacion' => 11,
+        'peticion entre autoridades' => 11,
+        'peticion por congresistas' => 6
     ];
 
     return $dias_por_tipo[$tipo] ?? 'N/A'; // Retorna 'N/A' si no encuentra el tipo
@@ -169,6 +169,11 @@ $total_paginas = ceil($total_registros / $limit);
                         <input type="hidden" name="id" value="<?= $row['id'] ?>">
                         <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                     </form>
+                </td>
+                <td>
+                    <a href="editar_peticion.php?id=<?= $row['id'] ?>" class="btn btn-info btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
                 </td>
             </tr>
         <?php endwhile; ?>
