@@ -70,11 +70,10 @@ $total_paginas = ceil($total_registros / $limit);
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
-
 </head>
 <body>
 <div class="container my-5">
-    <h1 class="text-center">Lista de Peticiones</h1>
+    <h1 style="color:white" class="text-center">Lista de Peticiones</h1>
 
     <!-- Barra de búsqueda -->
     <form class="row mb-4" method="get" action="">
@@ -101,79 +100,82 @@ $total_paginas = ceil($total_registros / $limit);
         </div>
     </form>
 
-    <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Código</th>
-            <th>Tipo</th>
-            <th>Nombre</th>
-            <th>Documento</th>
-            <th>Correo</th>
-            <th>Fecha de Entrada</th>
-            <th>Fecha de Terminación</th>
-            <th>Días de Petición</th>
-            <th>Días Restantes</th>
-            <th>Fecha de Pausa</th>
-            <th>Días de Pausa</th>
-            <th>Estado</th>
-            <th colspan="3">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php while ($row = $result->fetch_assoc()): 
-            $dias_restantes = $row['dias_restantes'];
-            // Determinar el color de la fila
-            if ($dias_restantes <= 0) {
-                $row_class = 'table-danger'; // Rojo si ya terminó
-            } elseif ($dias_restantes <= 2) {
-                $row_class = 'table-warning'; // Amarillo si quedan 2 días o menos
-            } else {
-                $row_class = ''; // Sin clase si está en estado normal
-            }
-        ?>
-            <tr class="<?= $row_class ?>">
-                <td><?= $row['id'] ?></td>
-                <td><?= $row['codigo'] ?></td>
-                <td><?= $row['tipo_pqr'] ?></td>
-                <td><?= $row['nombre'] ?></td>
-                <td><?= $row['documento'] ?></td>
-                <td><?= $row['correo'] ?></td>
-                <td><?= $row['fecha_entrada'] ?></td>
-                <td><?= $row['fecha_terminacion'] ?></td>
-                <td><?= obtenerDiasPorTipo($row['tipo_pqr']) ?></td>
-                <td><?= $dias_restantes > 0 ? $dias_restantes . ' días restantes' : 'Vencido' ?></td>
-                <td><?= $row['fecha_pausa'] ?? 'N/A' ?></td>
-                <td><?= $row['dias_pausa'] ?></td>
-                <td><?= ucfirst($row['estado']) ?></td>
-                <td>
-                    <?php if ($row['estado'] === 'activo'): ?>
-                        <a href="actualizar_estado.php?id=<?= $row['id'] ?>&accion=pausar" class="btn btn-warning btn-sm"><i class="fas fa-pause"></i></a>
-                    <?php elseif ($row['estado'] === 'pausado'): ?>
-                        <a href="actualizar_estado.php?id=<?= $row['id'] ?>&accion=reanudar" class="btn btn-success btn-sm"><i class="fas fa-play"></i></a>
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <?php if (!isset($row['extensiones_usadas']) || $row['extensiones_usadas'] < 1): ?>
-                        <form action="extender_dias.php" method="post" class="d-inline">
-                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <input type="number" name="dias_extra" min="1" placeholder="Días" required class="form-control form-control-sm mb-1">
-                            <button type="submit" class="btn btn-primary btn-sm">Extender</button>
-                        </form>
-                    <?php else: ?>
-                        <button class="btn btn-secondary btn-sm" disabled>Extensión Usada</button>
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <form action="eliminar_peticion.php" method="post" class="d-inline">
-                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                    </form>
-                </td>
+    <!-- Contenedor con Scroll para la tabla -->
+    <div class="table-responsive">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Documento</th>
+                <th>Correo</th>
+                <th>Fecha de Entrada</th>
+                <th>Fecha de Terminación</th>
+                <th>Días de Petición</th>
+                <th>Días Restantes</th>
+                <th>Fecha de Pausa</th>
+                <th>Días de Pausa</th>
+                <th>Estado</th>
+                <th colspan="3">Acciones</th>
             </tr>
-        <?php endwhile; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php while ($row = $result->fetch_assoc()): 
+                $dias_restantes = $row['dias_restantes'];
+                // Determinar el color de la fila
+                if ($dias_restantes <= 0) {
+                    $row_class = 'table-danger'; // Rojo si ya terminó
+                } elseif ($dias_restantes <= 2) {
+                    $row_class = 'table-warning'; // Amarillo si quedan 2 días o menos
+                } else {
+                    $row_class = ''; // Sin clase si está en estado normal
+                }
+            ?>
+                <tr class="<?= $row_class ?>">
+                    <td><?= $row['id'] ?></td>
+                    <td><?= $row['codigo'] ?></td>
+                    <td><?= $row['tipo_pqr'] ?></td>
+                    <td><?= $row['nombre'] ?></td>
+                    <td><?= $row['documento'] ?></td>
+                    <td><?= $row['correo'] ?></td>
+                    <td><?= $row['fecha_entrada'] ?></td>
+                    <td><?= $row['fecha_terminacion'] ?></td>
+                    <td><?= obtenerDiasPorTipo($row['tipo_pqr']) ?></td>
+                    <td><?= $dias_restantes > 0 ? $dias_restantes . ' días restantes' : 'Vencido' ?></td>
+                    <td><?= $row['fecha_pausa'] ?? 'N/A' ?></td>
+                    <td><?= $row['dias_pausa'] ?></td>
+                    <td><?= ucfirst($row['estado']) ?></td>
+                    <td>
+                        <?php if ($row['estado'] === 'activo'): ?>
+                            <a href="actualizar_estado.php?id=<?= $row['id'] ?>&accion=pausar" class="btn btn-warning btn-sm"><i class="fas fa-pause"></i></a>
+                        <?php elseif ($row['estado'] === 'pausado'): ?>
+                            <a href="actualizar_estado.php?id=<?= $row['id'] ?>&accion=reanudar" class="btn btn-success btn-sm"><i class="fas fa-play"></i></a>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (!isset($row['extensiones_usadas']) || $row['extensiones_usadas'] < 1): ?>
+                            <form action="extender_dias.php" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <input type="number" name="dias_extra" min="1" placeholder="Días" required class="form-control form-control-sm mb-1">
+                                <button type="submit" class="btn btn-primary btn-sm">Extender</button>
+                            </form>
+                        <?php else: ?>
+                            <button class="btn btn-secondary btn-sm" disabled>Extensión Usada</button>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <form action="eliminar_peticion.php" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+    </div>
 
     <!-- Paginación -->
     <div class="pagination">
@@ -192,7 +194,6 @@ $total_paginas = ceil($total_registros / $limit);
             </li>
         </ul>
     </div>
-</div>
 </div>
 </body>
 </html>

@@ -77,3 +77,11 @@ h1 {
     vertical-align: middle;
 }
 
+
+/* Scroll para la tabla */
+.table-responsive {
+    max-height: 500px;
+    overflow-y: auto;  
+    margin-top: 20px;
+}
+

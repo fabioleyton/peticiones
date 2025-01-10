@@ -4,7 +4,7 @@ date_default_timezone_set('America/Bogota');
 
 $host = "localhost";
 $user = "root";
-$pass = "fabio0824";
+$pass = "joel231903";
 $db = "peticiones_db";
 
 $conn = new mysqli($host, $user, $pass, $db);

@@ -1,71 +1,139 @@
+        /* Fondo con animación de gradiente */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(-45deg, #0b3d91, #2a5faa, #4caf50, #45a049);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
 
-body {
-    font-family: 'Arial', 'Verdana', 'Segoe UI', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(135deg, #000428, #004e92);
-    color: #fff;
-}
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
+        /* Contenedor del formulario */
+        .form-container {
+            background-color: rgba(42, 95, 170, 0.95); /* Color de fondo con opacidad */
+            padding: 40px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px; /* Reducido el ancho */
+            width: 100%;
+            text-align: center;
+        }
 
-h1 {
-    color: #fff;
-    text-align: center;
-    margin-bottom: 21px;
-    font-size: 1.8rem;
-}
+        .form-container h1 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-.form-label {
-    color: #f5f5f5;
-}
+        /* Estilos para los grupos de inputs */
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
 
-.form-control {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px;
-}
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
 
-.form-control:focus {
-    background: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 8px rgba(0, 78, 146, 0.7);
-}
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #333;
+        }
 
-.btn-primary {
-    background: #004e92;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    transition: background 0.3s;
-}
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
 
-.btn-primary:hover {
-    background: #000428;
-}
+        /* Botones */
+        .form-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
 
-.btn-info {
-    background: #34a1eb;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    color: #fff;
-    transition: background 0.3s;
-}
+        .form-button:hover {
+            background-color: #45a049;
+        }
 
-.btn-info:hover {
-    background: #1e81b0;
-}
+        .secondary-button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-.text-center a {
-    text-decoration: none;
-}
+        .secondary-button:hover {
+            background-color: white;
+            color: #0b3d91;
+        }
 
+        /* Animación del logo */
+        @keyframes slideIn {
+            0% {
+              transform: translateX(-100%);
+            }
+            100% {
+              transform: translateX(0);
+            }
+          }
+  
+  /* Estilos del logo */
+  .logo {
+    position: absolute; /* Permite ubicar el logo en la esquina */
+    top: 100px; /* Ajusta la posición vertical */
+    left: 50px; /* Ajusta la posición horizontal */
+    width: 350px; /* Reduce el tamaño del logo */
+    height: 150px; /* Mantiene el logo proporcionado */
+    border-radius: 20px; /* Bordes suaves */
+    overflow: hidden; /* Para que el contenido respete los bordes redondeados */
+    animation: slideIn 1.5s ease-out forwards;
+    background-color: #f3f3f3; /* Fondo opcional si el logo no tiene transparencia */
+    display: flex; /* Centrar la imagen dentro del contenedor */
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  /* Imagen dentro del logo */
+  .logo img {
+    width: 100%; /* La imagen ocupa todo el espacio del contenedor */
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen se adapte correctamente al contenedor */
+    border-radius: 20px; /* Bordes suaves para la imagen también */
+  }
+  
