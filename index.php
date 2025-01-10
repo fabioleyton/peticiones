@@ -18,7 +18,7 @@ require 'db_config.php';
 <body>
     <header>
     <div class="logo">
-        <img src="images/logo1.jpg" alt="Logo">
+        <img src="images/logo1.png" alt="Logo">
     </div>
 
     </header>
