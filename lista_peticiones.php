@@ -171,6 +171,11 @@ $total_paginas = ceil($total_registros / $limit);
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
+                    <td>
+                        <a href="editar_peticion.php?id=<?= $row['id'] ?>" class="btn btn-info btn-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                    </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
