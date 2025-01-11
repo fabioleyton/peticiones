@@ -1,6 +1,19 @@
 <?php
 require_once 'db_config.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+
+    // Actualizar el estado en la base de datos a 'resuelto'
+    $sql = "UPDATE peticiones SET estado = 'resuelto' WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    // Redirigir a la página principal con un mensaje
+    header("Location: index.php?mensaje=Petición resuelta exitosamente.");
+    exit;
+}
 // Función para asignar días según el tipo de petición
 function obtenerDiasPorTipo($tipo) {
     $dias_por_tipo = [
@@ -75,6 +88,20 @@ $total_paginas = ceil($total_registros / $limit);
 <div class="container my-5">
     <h1 style="color:white" class="text-center">Lista de Peticiones</h1>
 
+    <!-- Mostrar mensajes de estado -->
+    <?php
+    if (isset($_GET['mensaje'])) {
+        $mensaje = $_GET['mensaje'];
+        if ($mensaje == 'resuelto') {
+            echo '<div class="alert alert-success">¡La petición se ha resuelto correctamente!</div>';
+        } elseif ($mensaje == 'error') {
+            echo '<div class="alert alert-danger">Hubo un error al resolver la petición.</div>';
+        } elseif ($mensaje == 'id_invalido') {
+            echo '<div class="alert alert-warning">El ID proporcionado no es válido.</div>';
+        }
+    }
+    ?>
+    
     <!-- Barra de búsqueda -->
     <form class="row mb-4" method="get" action="">
         <div class="col-md-4">
@@ -122,10 +149,12 @@ $total_paginas = ceil($total_registros / $limit);
             </tr>
         </thead>
         <tbody>
-            <?php while ($row = $result->fetch_assoc()): 
+        <?php while ($row = $result->fetch_assoc()): 
                 $dias_restantes = $row['dias_restantes'];
                 // Determinar el color de la fila
-                if ($dias_restantes <= 0) {
+                if ($row['estado'] === 'resuelto') {
+                    $row_class = 'table-success'; // Verde para resuelto
+                } elseif ($dias_restantes <= 0) {
                     $row_class = 'table-danger'; // Rojo si ya terminó
                 } elseif ($dias_restantes <= 2) {
                     $row_class = 'table-warning'; // Amarillo si quedan 2 días o menos
@@ -171,6 +200,25 @@ $total_paginas = ceil($total_registros / $limit);
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
+                    <td>
+                        <?php if ($row['estado'] === 'resuelto'): ?>
+                            <button class="btn btn-success btn-sm" disabled><i class="fas fa-check"></i> Resuelto</button>
+                        <?php else: ?>
+                            <form action="resolver_peticion.php" method="post" class="d-inline">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <button type="submit" class="btn btn-success btn-sm" <?= $row['estado'] === 'resuelto' ? 'disabled' : '' ?>>
+                                    <i class="fas fa-check"></i> Resolver
+                                </button>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+
+                    <?php if (isset($_GET['mensaje'])): ?>
+                        <div class="alert alert-success">
+                    <?= htmlspecialchars($_GET['mensaje']) ?>
+                    </div>
+                        <?php endif; ?>
+        
                     <td>
                         <a href="editar_peticion.php?id=<?= $row['id'] ?>" class="btn btn-info btn-sm">
                             <i class="fas fa-edit"></i> Editar

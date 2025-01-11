@@ -4,7 +4,7 @@ date_default_timezone_set('America/Bogota');
 
 $host = "localhost";
 $user = "root";
-$pass = "fabio0824";
+$pass = "joel231903";
 $db = "peticiones_db";
 
 $conn = new mysqli($host, $user, $pass, $db);
@@ -13,7 +13,6 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
-
 
 // Función para calcular días hábiles, considerando sábados, domingos y festivos
 if (!function_exists('calcularDiasHabiles')) {
