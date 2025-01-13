@@ -70,6 +70,12 @@ $total_paginas = ceil($total_registros / $limit);
     <link rel="stylesheet" href="styles2.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <style>
+        .table-finalizado-usuario {
+            background-color: #6f42c1 !important; /* Morado */
+            color: white !important; /* Texto blanco */
+        }
+    </style>
 </head>
 <body>
 <div class="container my-5">
@@ -124,14 +130,16 @@ $total_paginas = ceil($total_registros / $limit);
         <tbody>
             <?php while ($row = $result->fetch_assoc()): 
                 $dias_restantes = $row['dias_restantes'];
-                // Determinar el color de la fila
-                if ($dias_restantes <= 0) {
-                    $row_class = 'table-danger'; // Rojo si ya terminó
-                } elseif ($dias_restantes <= 2) {
-                    $row_class = 'table-warning'; // Amarillo si quedan 2 días o menos
-                } else {
-                    $row_class = ''; // Sin clase si está en estado normal
-                }
+                    // Determinar el color de la fila
+                    if ($row['estado'] === 'finalizado por usuario') {
+                        $row_class = 'table-finalizado-usuario'; // Clase personalizada para morado
+                    } elseif ($dias_restantes <= 0) {
+                        $row_class = 'table-danger'; // Rojo si ya terminó
+                    } elseif ($dias_restantes <= 2) {
+                        $row_class = 'table-warning'; // Amarillo si quedan 2 días o menos
+                    } else {
+                        $row_class = ''; // Sin clase si está en estado normal
+                    }
             ?>
                 <tr class="<?= $row_class ?>">
                     <td><?= $row['id'] ?></td>

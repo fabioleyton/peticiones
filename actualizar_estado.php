@@ -46,6 +46,17 @@ if (isset($_GET['id']) && isset($_GET['accion'])) {
         } else {
             echo "<script>alert('Error: " . $conn->error . "'); window.location.href='lista_peticiones.php';</script>";
         }
+    } elseif ($accion === 'finalizar' && $peticion['estado'] !== 'finalizado') {
+        // Finalizar la petición
+        $sql = "UPDATE peticiones SET estado = 'finalizado por usuario' WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $id);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('Petición finalizada exitosamente.'); window.location.href='lista_peticiones.php';</script>";
+        } else {
+            echo "<script>alert('Error al finalizar la petición: " . $conn->error . "'); window.location.href='lista_peticiones.php';</script>";
+        }
     } else {
         echo "<script>alert('Acción no válida.'); window.location.href='lista_peticiones.php';</script>";
     }

@@ -32,6 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_terminacion = $_POST['fecha_terminacion'];
     $estado = $_POST['estado'];
 
+    // Validar el estado y personalizar el mensaje si es "finalizado"
+    $valores_permitidos = ['activo', 'pausado', 'finalizado'];
+    if (!in_array($estado, $valores_permitidos)) {
+        die('Estado no válido.');
+    }
+
+    if ($estado === 'finalizado') {
+        $estado = 'fin por ususario';
+    }
+
     // Actualizar los datos en la base de datos
     $sql_update = "UPDATE peticiones 
                    SET codigo = ?, tipo_pqr = ?, nombre = ?, documento = ?, correo = ?, fecha_entrada = ?, fecha_terminacion = ?, estado = ? 
@@ -104,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <select name="estado" id="estado" class="form-select" required>
                 <option value="activo" <?= $peticion['estado'] === 'activo' ? 'selected' : '' ?>>Activo</option>
                 <option value="pausado" <?= $peticion['estado'] === 'pausado' ? 'selected' : '' ?>>Pausado</option>
-                <option value="finalizado" <?= $peticion['estado'] === 'finalizado' ? 'selected' : '' ?>>Finalizado</option>
+                <option value="finalizado" <?= strpos($peticion['estado'], 'finalizado') !== false ? 'selected' : '' ?>>Finalizado</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
