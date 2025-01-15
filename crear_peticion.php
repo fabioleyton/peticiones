@@ -39,8 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fecha_terminacion = calcularDiasHabiles($fecha_entrada, $dias_habiles);
 
     // Insertar datos en la base de datos
-    $sql = "INSERT INTO peticiones (tipo_pqr, nombre, documento, correo, fecha_entrada, fecha_terminacion, dias_restantes, codigo) 
-            VALUES ('$tipo_pqr', '$nombre', '$documento', '$correo', '$fecha_entrada', '$fecha_terminacion', $dias_habiles, '$codigo')";
+    $sql = "INSERT INTO peticiones (tipo_pqr, nombre, documento, correo, fecha_entrada, fecha_terminacion, dias_restantes, codigo, estado) 
+    VALUES ('$tipo_pqr', '$nombre', '$documento', '$correo', '$fecha_entrada', '$fecha_terminacion', $dias_habiles, '$codigo', 'activo')";
+
     
     if ($conn->query($sql) === TRUE) {
         // Mostrar mensaje de éxito en un alert

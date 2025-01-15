@@ -14,7 +14,7 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 
     if ($result) {
         // Redirigir con mensaje de éxito
-        header("Location: lista_peticiones.php?mensaje=resuelto");
+        header("Location: lista_peticiones.php");
         exit();
     } else {
         // Redirigir con mensaje de error

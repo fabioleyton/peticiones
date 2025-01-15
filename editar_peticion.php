@@ -74,13 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Petición</title>
-    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container my-5">
-    <h1 class="text-center">Editar Petición</h1>
+<div class="form-container">
+    <h1  class="text-center">Editar Petición</h1>
     <form method="POST">
+    <div class="form-group">
         <div class="mb-3">
             <label for="codigo" class="form-label">Código</label>
             <input type="text" name="codigo" id="codigo" class="form-control" value="<?= htmlspecialchars($peticion['codigo']) ?>" required>
@@ -117,9 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="finalizado" <?= strpos($peticion['estado'], 'finalizado') !== false ? 'selected' : '' ?>>Finalizado</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="submit" class="form-button">Guardar Cambios</button>
         <a href="lista_peticiones.php" class="btn btn-secondary">Cancelar</a>
     </form>
+    </div>
 </div>
 </body>
 </html>

@@ -11,7 +11,7 @@ if (isset($_POST['id'])) {
     
     if ($stmt->execute()) {
         // Redirigir a la lista de peticiones después de eliminar
-        header("Location: lista_peticiones.php?mensaje=Petición eliminada con éxito");
+        header("Location: lista_peticiones.php");
         exit();
     } else {
         echo "Error al eliminar la petición: " . $conn->error;
